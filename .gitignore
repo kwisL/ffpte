@@ -1,0 +1,6 @@
+.env
+.env.*
+secretos/
+.claude/settings.local.json
+desktop.ini
+Thumbs.db
