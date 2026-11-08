@@ -1,0 +1,35 @@
+---
+name: animar-imagen
+description: Anima cualquier imagen o logo (zoom, rebote, flotar, giro 3D, latido, revelado…) y entrega SIEMPRE 3 ejemplos distintos sin alterar nunca los colores del logo. Úsala cuando pida animar un logo, una imagen, un intro/outro animado o un logo en movimiento para reels.
+---
+
+## Regla de oro
+**Los colores del logo no se tocan jamás.** Solo se permiten movimientos (posición, escala,
+rotación, recorte, aparición). Prohibido: filtros, tintes, degradados sobre el logo, cambios de
+brillo, saturación o tono, y recolorear el fondo "para que combine" si eso modifica el logo.
+
+## Pasos
+1. Pide la imagen si no la tengo (PNG con fondo transparente es lo ideal).
+2. Si no lo dije, usa formato vertical `1080x1920`, 4 s, fondo `auto` (el de la propia imagen,
+   o blanco si es transparente). Pregunta solo si pido algo concreto (cuadrado 1080x1080, horizontal 1920x1080, color de fondo de marca).
+3. Ejecuta:
+   ```bash
+   python3 .claude/skills/animar-imagen/scripts/animar.py RUTA_IMAGEN \
+     --salida contenido/animaciones/AAAA-MM-DD-nombre [--estilos a,b,c] \
+     [--formato 1080x1920] [--segundos 4] [--fondo auto|#RRGGBB|transparente]
+   ```
+   Sin `--estilos` elige 3 variados: uno de **entrada** (zoom, rebote, deslizar, rotar, revelar),
+   uno de **bucle** (flotar, respirar, giro3d) y uno de **énfasis** (latido, sacudir).
+   Si pido otras formas, cambia los estilos, pero siempre exactamente 3.
+4. Comprueba que la salida dice `VERIFICACIÓN DE COLOR: OK`. Si sale AVISO, no entregues:
+   revisa la imagen (bordes semitransparentes, fondo) y repite.
+5. Entrega los 3 ejemplos: por cada uno, nombre del estilo, una línea de para qué sirve
+   (intro, cierre de reel, story…) y los archivos:
+   - `.mp4` → listo para Instagram/TikTok/YouTube.
+   - `.mov` → sin pérdida y con transparencia (si fondo transparente), para montar en el editor.
+   - `-portada.png` → fotograma fijo para revisar los colores.
+6. No publiques nada sin mi confirmación.
+
+## Nota técnica
+El MP4 usa H.264 con espacio de color bt709 bien etiquetado y calidad alta (CRF 12) para que las
+apps no desplacen los colores; el `.mov` (QuickTime Animation) es RGB sin pérdida: colores exactos al píxel.
