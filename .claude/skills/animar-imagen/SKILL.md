@@ -21,6 +21,12 @@ brillo, saturación o tono, y recolorear el fondo "para que combine" si eso modi
    Sin `--estilos` elige 3 variados: uno de **entrada** (zoom, rebote, deslizar, rotar, revelar),
    uno de **bucle** (flotar, respirar, giro3d) y uno de **énfasis** (latido, sacudir).
    Si pido otras formas, cambia los estilos, pero siempre exactamente 3.
+   **Escritura** (cuando pida que el logo "se escriba", "se forme" o aparezca letra a letra):
+   `--estilos escribir,escribir-inverso,escribir-lineas --segundos 5`
+   - `escribir`: se dibuja el símbolo y luego las letras una a una.
+   - `escribir-inverso`: primero el texto letra a letra y al final el símbolo.
+   - `escribir-lineas`: todas las líneas de texto a la vez mientras se dibuja el símbolo.
+   Cada letra aparece entera con su color original: no hay fundidos que mezclen colores.
 4. Comprueba que la salida dice `VERIFICACIÓN DE COLOR: OK`. Si sale AVISO, no entregues:
    revisa la imagen (bordes semitransparentes, fondo) y repite.
 5. Entrega los 3 ejemplos: por cada uno, nombre del estilo, una línea de para qué sirve

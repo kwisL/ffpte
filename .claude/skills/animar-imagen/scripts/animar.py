@@ -49,8 +49,74 @@ def sacudir(t):
     return a, 0, 1, 1, a * 100, 1, 1
 def respirar(t):  k = 1 + .05 * math.sin(t * 2 * math.pi); return 0, 0, k, k, 0, 1, 1
 
+# --- Estilos de ESCRITURA: las piezas del logo aparecen una a una (letra a letra) ---
+# Cada píxel recibe un "momento de aparición"; nunca se mezcla ni se modifica su color.
+def _componentes(mask):
+    import numpy as np
+    from collections import deque
+    h, w = mask.shape; lab = np.zeros((h, w), np.int32); n = 0
+    for y0, x0 in zip(*np.nonzero(mask)):
+        if lab[y0, x0]: continue
+        n += 1; lab[y0, x0] = n; q = deque([(y0, x0)])
+        while q:
+            y, x = q.popleft()
+            for yy, xx in ((y-1,x),(y+1,x),(y,x-1),(y,x+1),(y-1,x-1),(y-1,x+1),(y+1,x-1),(y+1,x+1)):
+                if 0 <= yy < h and 0 <= xx < w and mask[yy, xx] and not lab[yy, xx]:
+                    lab[yy, xx] = n; q.append((yy, xx))
+    return lab, n
+
+def mapa_escritura(logo, variante):
+    import numpy as np
+    a = np.array(logo.getchannel("A")) > 0
+    # dilatar 2px para unir bordes suavizados y tildes/puntos a su letra
+    d = a.copy()
+    for _ in range(2):
+        d = d | np.roll(d, 1, 0) | np.roll(d, -1, 0) | np.roll(d, 1, 1) | np.roll(d, -1, 1)
+    lab, n = _componentes(d)
+    piezas = []
+    for i in range(1, n + 1):
+        ys, xs = np.nonzero(lab == i)
+        piezas.append(dict(id=i, y0=ys.min(), y1=ys.max(), x0=xs.min(), x1=xs.max()))
+    alturas = sorted(p["y1"] - p["y0"] for p in piezas)
+    med = alturas[len(alturas) // 2]
+    hmax = max(p["y1"] - p["y0"] for p in piezas)
+    simbolo = [p for p in piezas if p["y1"] - p["y0"] > .6 * hmax]
+    letras = [p for p in piezas if p not in simbolo]
+    # agrupar letras en líneas por su centro vertical
+    letras.sort(key=lambda p: (p["y0"] + p["y1"]) / 2)
+    lineas = []
+    for p in letras:
+        c = (p["y0"] + p["y1"]) / 2
+        if lineas and abs(c - lineas[-1][-1]["c"]) < med * .6: lineas[-1].append(p)
+        else: lineas.append([p])
+        p["c"] = c
+    for l in lineas: l.sort(key=lambda p: p["x0"])
+    T = np.full(a.shape, np.inf)
+    def letras_en(t0, t1, paralelo=False):
+        if paralelo:
+            for l in lineas:
+                for k, p in enumerate(l): T[lab == p["id"]] = t0 + (t1 - t0) * k / len(l)
+        else:
+            seq = [p for l in lineas for p in l]
+            for k, p in enumerate(seq): T[lab == p["id"]] = t0 + (t1 - t0) * k / len(seq)
+    def simbolo_en(t0, t1):
+        simbolo.sort(key=lambda p: p["y0"])
+        for k, p in enumerate(simbolo):
+            m = lab == p["id"]; ys = np.nonzero(m)[0]
+            a0 = t0 + (t1 - t0) * k / (len(simbolo) + 1); a1 = a0 + (t1 - t0) * 2 / (len(simbolo) + 1)
+            yy = np.arange(a.shape[0])[:, None] * np.ones_like(m)
+            T[m] = a0 + (a1 - a0) * (yy[m] - ys.min()) / max(1, ys.max() - ys.min())
+    if variante == "escribir":           simbolo_en(0, .25); letras_en(.28, .75)
+    elif variante == "escribir-inverso": letras_en(0, .5); simbolo_en(.52, .75)
+    else:                                simbolo_en(0, .6); letras_en(.1, .6, paralelo=True)
+    T[~a] = np.inf
+    return T
+
+ESCRITURA = ["escribir", "escribir-inverso", "escribir-lineas"]
+
 ESTILOS = dict(zoom=zoom, flotar=flotar, latido=latido, giro3d=giro3d, rebote=rebote,
-               deslizar=deslizar, rotar=rotar, revelar=revelar, sacudir=sacudir, respirar=respirar)
+               deslizar=deslizar, rotar=rotar, revelar=revelar, sacudir=sacudir, respirar=respirar,
+               **{e: None for e in ESCRITURA})
 # Grupos: entrada / bucle / énfasis -> por defecto se elige uno de cada para variedad
 GRUPOS = [["zoom", "rebote", "deslizar", "rotar", "revelar"],
           ["flotar", "respirar", "giro3d"],
@@ -86,6 +152,16 @@ def frame(logo, W, H, estado, fondo):
 
 def render(logo, estilo, W, H, seg, fondo, base):
     n = int(seg * FPS); f = ESTILOS[estilo]
+    if estilo in ESCRITURA:
+        import numpy as np
+        T = mapa_escritura(logo, estilo); base_px = np.array(logo); fijo = lambda e: e
+        def f(t): return t
+        def frame_escr(t):
+            px = base_px.copy(); px[..., 3] = np.where(T <= t, px[..., 3], 0)
+            capa = Image.fromarray(px, "RGBA")
+            lienzo = Image.new("RGBA", (W, H), (0, 0, 0, 0) if fondo is None else (*fondo, 255))
+            lienzo.alpha_composite(capa, ((W - capa.width) // 2, (H - capa.height) // 2))
+            return lienzo
     mp4 = base + ".mp4"; mov = base + ".mov"
     bg = fondo or (255, 255, 255)
     p1 = subprocess.Popen(["ffmpeg", "-y", "-loglevel", "error", "-f", "rawvideo", "-pix_fmt", "rgba",
@@ -98,7 +174,7 @@ def render(logo, estilo, W, H, seg, fondo, base):
     ultimo = None
     for i in range(n):
         t = i / n
-        img = frame(logo, W, H, f(t), fondo)
+        img = frame_escr(t) if estilo in ESCRITURA else frame(logo, W, H, f(t), fondo)
         p2.stdin.write(img.tobytes())
         sol = Image.new("RGBA", (W, H), (*bg, 255)); sol.alpha_composite(img)
         p1.stdin.write(sol.tobytes()); ultimo = img
