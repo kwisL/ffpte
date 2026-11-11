@@ -59,3 +59,9 @@ Si el fondo es pequeño (menos de 1080 px de ancho), mejóralo antes con superre
 (github.com/Saafke/EDSR_Tensorflow, carpeta models), `cv2.dnn_superres` x4 → redimensiona a 1080x1920 → enfoque suave
 (unsharp: 1.35·img − 0.35·desenfoque σ=2). Mantiene los colores. Avisa de que no hace milagros con originales muy pequeños.
 Para recortar retratos ovalados sobre fondo oscuro: umbral de brillo → caja del óvalo → máscara elíptica suavizada.
+
+### Música (cuando pida sonido)
+`python3 .claude/skills/animar-imagen/scripts/musica.py salida.wav --segundos N --estilo piano-arpegio|piano-acordes|guitarra`
+Música original sintetizada (La m–Fa–Do–Sol, 66 bpm, tono sereno). Únela al vídeo con ffmpeg
+(`-c:v copy -c:a aac -b:a 192k`, `afade` de salida en los últimos 3 s, `-t` = duración del vídeo).
+Con 3 vídeos, pon un estilo distinto a cada uno. Si el fondo no es 9:16, usa su proporción en `formato` para no deformarlo.
