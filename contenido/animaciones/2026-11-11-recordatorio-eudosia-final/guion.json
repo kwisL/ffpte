@@ -27,22 +27,39 @@
     {
       "bloques": [
         {
-          "texto": "Acompáñanos a elevar una oración por el eterno descanso del alma de nuestra querida:",
+          "texto": "Acompáñanos a elevar una oración por el eterno descanso de las almas de nuestros queridos:",
           "fuente": "CormorantGaramond.ttf",
           "tam": 49,
           "peso": 500,
           "color": "#4A3F35",
-          "espacio": 50
+          "espacio": 34
         },
         {
-          "texto": "Eudosia Del Carmen\nDavila Rizo",
           "fuente": "GreatVibes-Regular.ttf",
-          "tam": 94,
+          "tam": 62,
           "color": "#8A6A2F",
-          "interlineado": 1.15
+          "interlineado": 1.15,
+          "espacio": 6,
+          "texto": "Eudosia Del Carmen Davila Rizo"
+        },
+        {
+          "texto": "y",
+          "fuente": "CormorantGaramond-Italic.ttf",
+          "tam": 44,
+          "peso": 500,
+          "color": "#4A3F35",
+          "espacio": 6
+        },
+        {
+          "fuente": "GreatVibes-Regular.ttf",
+          "tam": 62,
+          "color": "#8A6A2F",
+          "interlineado": 1.15,
+          "espacio": 0,
+          "texto": "Andres Humberto Martinez Alvarado"
         }
       ],
-      "pausa": 3.5
+      "pausa": 4.5
     },
     {
       "bloques": [
