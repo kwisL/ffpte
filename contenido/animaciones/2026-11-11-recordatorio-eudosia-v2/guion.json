@@ -1,0 +1,131 @@
+{
+  "nombre": "recordatorio-eudosia",
+  "fondo": "fondo.jpg",
+  "formato": [
+    1080,
+    1578
+  ],
+  "caja": [
+    0.12,
+    0.45,
+    0.88,
+    0.665
+  ],
+  "escenas": [
+    {
+      "bloques": [
+        {
+          "texto": "Hay personas que dejan una huella imborrable en nuestros corazones y cuyo recuerdo vive por siempre entre nosotros.",
+          "fuente": "CormorantGaramond-Italic.ttf",
+          "tam": 48,
+          "peso": 500,
+          "color": "#4A3F35",
+          "interlineado": 1.3
+        }
+      ]
+    },
+    {
+      "bloques": [
+        {
+          "texto": "Acompáñanos a elevar una oración por el eterno descanso de las almas de nuestros queridos:",
+          "fuente": "CormorantGaramond.ttf",
+          "tam": 40,
+          "peso": 500,
+          "color": "#4A3F35",
+          "espacio": 24
+        },
+        {
+          "fuente": "GreatVibes-Regular.ttf",
+          "tam": 51,
+          "color": "#8A6A2F",
+          "interlineado": 1.15,
+          "espacio": 4,
+          "texto": "Eudosia Del Carmen Davila Rizo"
+        },
+        {
+          "texto": "y",
+          "fuente": "CormorantGaramond-Italic.ttf",
+          "tam": 36,
+          "peso": 500,
+          "color": "#4A3F35",
+          "espacio": 4
+        },
+        {
+          "fuente": "GreatVibes-Regular.ttf",
+          "tam": 51,
+          "color": "#8A6A2F",
+          "interlineado": 1.15,
+          "espacio": 0,
+          "texto": "Andres Humberto Martinez Alvarado"
+        }
+      ],
+      "pausa": 4.5
+    },
+    {
+      "bloques": [
+        {
+          "texto": "Su presencia seguirá iluminando nuestras vidas a través del recuerdo y la fe.",
+          "fuente": "CormorantGaramond-Italic.ttf",
+          "tam": 48,
+          "peso": 500,
+          "color": "#4A3F35",
+          "interlineado": 1.3
+        }
+      ]
+    },
+    {
+      "bloques": [
+        {
+          "texto": "FECHA",
+          "fuente": "CormorantGaramond.ttf",
+          "tam": 26,
+          "peso": 700,
+          "color": "#8A6A2F",
+          "espacio": 3
+        },
+        {
+          "texto": "Domingo 29 de noviembre de 2026",
+          "fuente": "CormorantGaramond.ttf",
+          "tam": 39,
+          "peso": 600,
+          "color": "#4A3F35",
+          "espacio": 27
+        },
+        {
+          "texto": "HORA",
+          "fuente": "CormorantGaramond.ttf",
+          "tam": 26,
+          "peso": 700,
+          "color": "#8A6A2F",
+          "espacio": 3
+        },
+        {
+          "texto": "5:00 p. m.",
+          "fuente": "CormorantGaramond.ttf",
+          "tam": 39,
+          "peso": 600,
+          "color": "#4A3F35",
+          "espacio": 27
+        },
+        {
+          "texto": "LUGAR",
+          "fuente": "CormorantGaramond.ttf",
+          "tam": 26,
+          "peso": 700,
+          "color": "#8A6A2F",
+          "espacio": 3
+        },
+        {
+          "texto": "Ciudad Sandino, zona #4\nde Tienda el Gallo más Gallo\n1 c. al norte, ½ c. al este\nCasa P24",
+          "fuente": "CormorantGaramond.ttf",
+          "tam": 37,
+          "peso": 600,
+          "color": "#4A3F35",
+          "interlineado": 1.2
+        }
+      ],
+      "pausa": 5,
+      "final": true
+    }
+  ]
+}
