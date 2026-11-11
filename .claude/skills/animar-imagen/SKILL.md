@@ -39,3 +39,14 @@ brillo, saturación o tono, y recolorear el fondo "para que combine" si eso modi
 ## Nota técnica
 El MP4 usa H.264 con espacio de color bt709 bien etiquetado y calidad alta (CRF 12) para que las
 apps no desplacen los colores; el `.mov` (QuickTime Animation) es RGB sin pérdida: colores exactos al píxel.
+
+## Texto animado sobre un fondo (invitaciones, recordatorios, eventos)
+Cuando me pases un fondo + un texto para animar encima:
+1. Copia el fondo a `contenido/animaciones/AAAA-MM-DD-tema/fondo.png` y escribe ahí un `guion.json`
+   (ver ejemplo en `contenido/animaciones/2026-11-11-recordatorio-eudosia/guion.json`):
+   reparte el texto en escenas cortas, nombres importantes con `GreatVibes`, el resto con
+   `CormorantGaramond` (fuentes en `fuentes/`). Ajusta `caja` (proporciones x0,y0,x1,y1) a la zona libre del fondo.
+2. `python3 .claude/skills/animar-imagen/scripts/animar_texto.py guion.json --salida <carpeta>`
+   → 3 variantes: letra a letra, palabra a palabra, línea a línea con zoom lento del fondo.
+3. El fondo no cambia de color nunca. Respeta el texto tal como lo dicto; si veo una posible errata
+   (tildes, nombres), pregúntamelo en vez de corregirlo por mi cuenta.
