@@ -48,5 +48,7 @@ Cuando me pases un fondo + un texto para animar encima:
    `CormorantGaramond` (fuentes en `fuentes/`). Ajusta `caja` (proporciones x0,y0,x1,y1) a la zona libre del fondo.
 2. `python3 .claude/skills/animar-imagen/scripts/animar_texto.py guion.json --salida <carpeta>`
    → 3 variantes: letra a letra, palabra a palabra, línea a línea con zoom lento del fondo.
+   Para poner una foto encima (p. ej. retrato arriba), añade al guion `"imagenes": [{"archivo", "centro": [x,y], "alto"}]`.
+   Si pido "solo 1 vídeo", usa `--solo palabras` (o el modo que pida): mi petición manda sobre la regla de 3.
 3. El fondo no cambia de color nunca. Respeta el texto tal como lo dicto; si veo una posible errata
    (tildes, nombres), pregúntamelo en vez de corregirlo por mi cuenta.

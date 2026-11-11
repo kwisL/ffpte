@@ -1,0 +1,126 @@
+{
+  "nombre": "recordatorio-eudosia-foto",
+  "fondo": "fondo.png",
+  "formato": [
+    1080,
+    1920
+  ],
+  "caja": [
+    0.15,
+    0.32,
+    0.85,
+    0.655
+  ],
+  "escenas": [
+    {
+      "bloques": [
+        {
+          "texto": "Hay personas que dejan una huella imborrable en nuestros corazones y cuyo recuerdo vive por siempre entre nosotros.",
+          "fuente": "CormorantGaramond-Italic.ttf",
+          "tam": 56,
+          "peso": 500,
+          "color": "#4A3F35",
+          "interlineado": 1.3
+        }
+      ]
+    },
+    {
+      "bloques": [
+        {
+          "texto": "Acompáñanos a elevar una oración por el eterno descanso del alma de nuestra querida:",
+          "fuente": "CormorantGaramond.ttf",
+          "tam": 48,
+          "peso": 500,
+          "color": "#4A3F35",
+          "espacio": 50
+        },
+        {
+          "texto": "Eudosia Del Carmen\nDavila Rizo",
+          "fuente": "GreatVibes-Regular.ttf",
+          "tam": 92,
+          "color": "#8A6A2F",
+          "interlineado": 1.15
+        }
+      ],
+      "pausa": 3.5
+    },
+    {
+      "bloques": [
+        {
+          "texto": "Su presencia seguirá iluminando nuestras vidas a través del recuerdo y la fe.",
+          "fuente": "CormorantGaramond-Italic.ttf",
+          "tam": 56,
+          "peso": 500,
+          "color": "#4A3F35",
+          "interlineado": 1.3
+        }
+      ]
+    },
+    {
+      "bloques": [
+        {
+          "texto": "FECHA",
+          "fuente": "CormorantGaramond.ttf",
+          "tam": 32,
+          "peso": 700,
+          "color": "#8A6A2F",
+          "espacio": 4
+        },
+        {
+          "texto": "Domingo 29 de noviembre de 2026",
+          "fuente": "CormorantGaramond.ttf",
+          "tam": 46,
+          "peso": 600,
+          "color": "#4A3F35",
+          "espacio": 38
+        },
+        {
+          "texto": "HORA",
+          "fuente": "CormorantGaramond.ttf",
+          "tam": 32,
+          "peso": 700,
+          "color": "#8A6A2F",
+          "espacio": 4
+        },
+        {
+          "texto": "5:00 p. m.",
+          "fuente": "CormorantGaramond.ttf",
+          "tam": 46,
+          "peso": 600,
+          "color": "#4A3F35",
+          "espacio": 38
+        },
+        {
+          "texto": "LUGAR",
+          "fuente": "CormorantGaramond.ttf",
+          "tam": 32,
+          "peso": 700,
+          "color": "#8A6A2F",
+          "espacio": 4
+        },
+        {
+          "texto": "Ciudad Sandino, zona #4\nde Tienda el Gallo más Gallo\n1 c. al norte, ½ c. al este\nCasa P24",
+          "fuente": "CormorantGaramond.ttf",
+          "tam": 44,
+          "peso": 600,
+          "color": "#4A3F35",
+          "interlineado": 1.2
+        }
+      ],
+      "pausa": 5,
+      "final": true
+    }
+  ],
+  "imagenes": [
+    {
+      "archivo": "retrato.png",
+      "centro": [
+        0.5,
+        0.19
+      ],
+      "alto": 0.22,
+      "aparece": 0,
+      "fundido": 1.5
+    }
+  ]
+}

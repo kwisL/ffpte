@@ -77,6 +77,13 @@ def main():
     W, H = g.get("formato", [1080, 1920])
     fondo0 = Image.open(os.path.join(base, g["fondo"])).convert("RGB")
     fondo = fondo0.resize((W, H), Image.LANCZOS)
+    # Imágenes encima del fondo (p. ej. un retrato): aparecen con fundido, sin tocar sus colores
+    extras = []
+    for e in g.get("imagenes", []):
+        im = Image.open(os.path.join(base, e["archivo"])).convert("RGBA")
+        h = int(e["alto"] * H); im = im.resize((round(im.width * h / im.height), h), Image.LANCZOS)
+        extras.append((im, (round(e["centro"][0] * W - im.width / 2), round(e["centro"][1] * H - h / 2)),
+                       e.get("aparece", 0), e.get("fundido", 1.2)))
     caja = [int(v * (W if i % 2 == 0 else H)) for i, v in enumerate(g["caja"])]
     os.makedirs(a.salida, exist_ok=True)
     modos = [a.solo] if a.solo else ["letra", "palabras", "lineas"]
@@ -113,7 +120,14 @@ def main():
                     if al <= 0: break
                     dy = (1 - al) ** 2 * 18 if modo == "palabras" else 0
                     d.text((x, y + dy), txt, font=f, features=FEAT, fill=(*c, round(255 * al * salida)))
-            img = bg.convert("RGBA"); img.alpha_composite(capa)
+            img = bg.convert("RGBA")
+            for im, pos, ap, fu in extras:
+                al = min(1, max(0, (tt - ap) / fu))
+                if al >= 1: img.alpha_composite(im, pos)
+                elif al > 0:
+                    t2 = im.copy(); t2.putalpha(im.getchannel("A").point(lambda v: round(v * al)))
+                    img.alpha_composite(t2, pos)
+            img.alpha_composite(capa)
             p.stdin.write(img.convert("RGB").tobytes())
             if i == nf - 1: img.convert("RGB").save(ruta.replace(".mp4", "-final.png"))
         p.stdin.close(); p.wait()
