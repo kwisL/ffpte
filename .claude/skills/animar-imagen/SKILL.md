@@ -52,3 +52,10 @@ Cuando me pases un fondo + un texto para animar encima:
    Si pido "solo 1 vídeo", usa `--solo palabras` (o el modo que pida): mi petición manda sobre la regla de 3.
 3. El fondo no cambia de color nunca. Respeta el texto tal como lo dicto; si veo una posible errata
    (tildes, nombres), pregúntamelo en vez de corregirlo por mi cuenta.
+
+### Mejorar un fondo pequeño o borroso
+Si el fondo es pequeño (menos de 1080 px de ancho), mejóralo antes con superresolución:
+`pip install opencv-contrib-python-headless`, descarga `EDSR_x4.pb`
+(github.com/Saafke/EDSR_Tensorflow, carpeta models), `cv2.dnn_superres` x4 → redimensiona a 1080x1920 → enfoque suave
+(unsharp: 1.35·img − 0.35·desenfoque σ=2). Mantiene los colores. Avisa de que no hace milagros con originales muy pequeños.
+Para recortar retratos ovalados sobre fondo oscuro: umbral de brillo → caja del óvalo → máscara elíptica suavizada.
